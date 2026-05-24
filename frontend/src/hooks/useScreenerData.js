@@ -13,7 +13,7 @@ export function useScreenerData() {
   // 1. Fetch available dates from manifest
   const fetchManifest = useCallback(async () => {
     try {
-      const res = await fetch("./output/manifest.json?t=" + Date.now());
+      const res = await fetch(`${import.meta.env.BASE_URL}output/manifest.json?t=` + Date.now());
       if (!res.ok) throw new Error("Manifest not found");
       const manifest = await res.json();
       const dates = manifest.availableDates || [];
@@ -35,11 +35,11 @@ export function useScreenerData() {
     setError(null);
     try {
       const [stocksRes, iposRes] = await Promise.all([
-        fetch(`./output/data_${date}.json?t=` + Date.now()).then((res) => {
+        fetch(`${import.meta.env.BASE_URL}output/data_${date}.json?t=` + Date.now()).then((res) => {
           if (!res.ok) throw new Error(`Failed to load screener data for ${date}.`);
           return res.json();
         }),
-        fetch(`./output/upcoming_ipos_${date}.json?t=` + Date.now()).then((res) => {
+        fetch(`${import.meta.env.BASE_URL}output/upcoming_ipos_${date}.json?t=` + Date.now()).then((res) => {
           if (!res.ok) throw new Error(`Failed to load upcoming IPOs for ${date}.`);
           return res.json();
         }),
