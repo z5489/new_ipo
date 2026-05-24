@@ -281,6 +281,7 @@ export function ScreenerTable({ stocks }) {
                               />
                             </div>
                           </div>
+                        </div>
                         ) : (
                           <div className="sticky left-0 w-[calc(100vw-2rem)] md:w-[calc(100vw-4rem)] max-w-[1280px] text-center text-sm text-slate-500 py-8">
                             No candlestick data available for {stock.ticker}.
