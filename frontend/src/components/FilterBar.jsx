@@ -38,7 +38,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
       {/* Header and Presets */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800/80 pb-3">
         <div>
-          <h2 className="text-sm font-semibold tracking-wider text-slate-400 uppercase text-[11px]">
+          <h2 className="text-sm font-semibold tracking-wider text-slate-400 uppercase text-[11px] sm:text-[11px]">
             Screener Parameters
           </h2>
           <p className="text-xs text-slate-500 mt-0.5">
@@ -47,13 +47,13 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
         </div>
 
         {/* Quick Presets */}
-        <div className="flex flex-wrap items-center gap-1.5">          <button
+        <div className="flex flex-wrap xl:flex-nowrap items-center gap-2 sm:gap-1.5">          <button
             onClick={() =>
               applyPreset({
                 marketCapFloor: 10000000000, // $10B
               })
             }
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-purple-300 hover:text-purple-200 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 rounded-full transition-all duration-200"
+            className="flex items-center gap-1.5 sm:gap-1 px-3 py-2 sm:px-2.5 sm:py-1 text-xs sm:text-[11px] font-medium text-purple-300 hover:text-purple-200 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 rounded-full transition-all duration-200"
           >
             <TrendingUp size={12} />
             Mega Cap
@@ -65,7 +65,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
                 ipoDaysRange: 90, // 90 days
               })
             }
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-emerald-300 hover:text-emerald-200 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-full transition-all duration-200"
+            className="flex items-center gap-1.5 sm:gap-1 px-3 py-2 sm:px-2.5 sm:py-1 text-xs sm:text-[11px] font-medium text-emerald-300 hover:text-emerald-200 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 rounded-full transition-all duration-200"
           >
             <Flame size={12} />
             Recent 90 Days
@@ -77,7 +77,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
                 avgVolumeFloor: 5000000, // 5M
               })
             }
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-blue-300 hover:text-blue-200 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 rounded-full transition-all duration-200"
+            className="flex items-center gap-1.5 sm:gap-1 px-3 py-2 sm:px-2.5 sm:py-1 text-xs sm:text-[11px] font-medium text-blue-300 hover:text-blue-200 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 rounded-full transition-all duration-200"
           >
             <Layers size={12} />
             High Volume
@@ -85,7 +85,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
 
           <button
             onClick={handleReset}
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-200 ml-1"
+            className="flex items-center gap-1.5 sm:gap-1 px-3 py-2 sm:px-2.5 sm:py-1 text-xs sm:text-[11px] font-medium text-slate-400 hover:text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full transition-all duration-200 sm:ml-1"
             title="Reset Filters"
           >
             <RotateCcw size={12} />
@@ -106,10 +106,10 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
               type="text"
               value={formatNumber(filters.marketCapFloor)}
               onChange={(e) => handleNumberChange("marketCapFloor", e.target.value)}
-              className="w-full h-9 pl-3 pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+              className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-12 sm:pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
               placeholder="e.g. 2,000,000,000"
             />
-            <span className="absolute right-3 top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
+            <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
               USD
             </span>
           </div>
@@ -124,7 +124,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
             type="text"
             value={formatNumber(filters.avgVolumeFloor)}
             onChange={(e) => handleNumberChange("avgVolumeFloor", e.target.value)}
-            className="w-full h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+            className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
             placeholder="e.g. 1,000,000"
           />
         </div>
@@ -139,10 +139,10 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
               type="number"
               value={filters.ipoDaysRange}
               onChange={(e) => handleChange("ipoDaysRange", e.target.value)}
-              className="w-full h-9 pl-3 pr-12 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+              className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-14 sm:pr-12 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
               placeholder="e.g. 365"
             />
-            <span className="absolute right-3 top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
+            <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
               Days
             </span>
           </div>
@@ -157,7 +157,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
             <select
               value={filters.sector || "All"}
               onChange={(e) => handleChange("sector", e.target.value)}
-              className="w-full h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all appearance-none cursor-pointer"
+              className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all appearance-none cursor-pointer"
             >
               <option value="All">All Sectors</option>
               {availableSectors.map((sec) => (
@@ -167,7 +167,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
               ))}
             </select>
             {/* Custom arrow */}
-            <div className="absolute right-3 top-2.5 pointer-events-none text-slate-500">
+            <div className="absolute right-4 sm:right-3 top-3.5 sm:top-2.5 pointer-events-none text-slate-500">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
@@ -175,12 +175,12 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
 
         {/* Above MA10 Toggle */}
         <div className="flex flex-col gap-1.5 justify-end">
-          <label className="flex items-center gap-2 cursor-pointer h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
+          <label className="flex items-center gap-2 cursor-pointer h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
             <input
               type="checkbox"
               checked={filters.aboveMA10 || false}
               onChange={(e) => handleChange("aboveMA10", e.target.checked)}
-              className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-4 h-4"
+              className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-5 h-5 sm:w-4 sm:h-4"
             />
             <span>Price {'>'} 10-Day MA</span>
           </label>
