@@ -7,10 +7,6 @@ export function RefreshBadge({ lastUpdated, refetch }) {
   const [relativeTime, setRelativeTime] = useState("");
   const initialLastUpdatedRef = useRef(lastUpdated);
 
-  // GitHub details from Vite env
-  const pat = import.meta.env.VITE_GH_PAT;
-  const owner = import.meta.env.VITE_REPO_OWNER;
-  const repo = import.meta.env.VITE_REPO_NAME;
 
   // 1. Calculate relative time
   useEffect(() => {
@@ -75,52 +71,32 @@ export function RefreshBadge({ lastUpdated, refetch }) {
   }, [lastUpdated, status]);
 
   const handleRefresh = async () => {
-    // Check if configuration exists
-    if (!pat || !owner || !repo) {
-      setStatus("error");
-      setErrorMessage(
-        "GitHub environment variables not configured in .env.local (VITE_GH_PAT, VITE_REPO_OWNER, VITE_REPO_NAME are required). Reloading local data instead."
-      );
-      // Reload local data as fallback
-      refetch();
-      setTimeout(() => {
-        setStatus("idle");
-        setErrorMessage("");
-      }, 7000);
-      return;
-    }
-
     setStatus("triggering");
     initialLastUpdatedRef.current = lastUpdated;
 
     try {
-      const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/fetch.yml/dispatches`;
-      const response = await fetch(url, {
+      const response = await fetch("/api/refresh", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${pat}`,
-          Accept: "application/vnd.github.v3+json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ref: "main",
-        }),
       });
 
-      if (response.status === 204) {
+      if (response.ok) {
         setStatus("polling");
       } else {
-        const errorText = await response.text();
-        throw new Error(`GitHub API returned status ${response.status}: ${errorText}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Server returned status ${response.status}`);
       }
     } catch (e) {
       console.error(e);
       setStatus("error");
       setErrorMessage(e.message || "Failed to trigger GitHub Action.");
+      
+      // Fallback: Reload local data
+      refetch();
+
       setTimeout(() => {
         setStatus("idle");
         setErrorMessage("");
-      }, 6000);
+      }, 7000);
     }
   };
 
