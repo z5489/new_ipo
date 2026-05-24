@@ -8,6 +8,7 @@ import { RefreshBadge } from "./components/RefreshBadge";
 import { Layers, Calendar, BarChart3, TrendingUp, Sparkles } from "lucide-react";
 
 const DEFAULT_FILTERS = {
+  marketCapFloor: 2000000000,    // $2B
   avgVolumeFloor: 1000000,       // 1M
   ipoDaysRange: 365,             // 365 days (1 year)
 };

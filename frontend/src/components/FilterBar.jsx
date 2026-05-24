@@ -73,7 +73,26 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
       </div>
 
       {/* Grid of Inputs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Market Cap */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-slate-300">
+            Min Market Cap ($)
+          </label>
+          <div className="relative">
+            <input
+              type="number"
+              value={filters.marketCapFloor}
+              onChange={(e) => handleChange("marketCapFloor", e.target.value)}
+              className="w-full h-9 pl-3 pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+              placeholder="e.g. 2000000000"
+            />
+            <span className="absolute right-3 top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
+              USD
+            </span>
+          </div>
+        </div>
+
         {/* Avg Volume */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-slate-300">

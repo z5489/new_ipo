@@ -107,6 +107,16 @@ export function useFilteredStocks(stocks, filters) {
     return stocks.filter((stock) => {
 
 
+      // 1. Market Cap Filter
+      if (filters.marketCapFloor !== "" && filters.marketCapFloor !== null && filters.marketCapFloor !== undefined) {
+        if (stock.marketCap === null || stock.marketCap === undefined) {
+          return false; // exclude missing
+        }
+        if (stock.marketCap < Number(filters.marketCapFloor)) {
+          return false;
+        }
+      }
+
       // 2. Volume Filter
       if (filters.avgVolumeFloor !== "" && filters.avgVolumeFloor !== null && filters.avgVolumeFloor !== undefined) {
         if (stock.avgVolume === null || stock.avgVolume === undefined) {
