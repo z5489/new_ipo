@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-24T14:33:57.724980Z",
+  "lastUpdated": "2026-05-24T14:43:01.316422Z",
   "stocks": [
     {
       "ticker": "AMRZ",
@@ -15,6 +15,8 @@
       "sector": "Basic Materials",
       "industry": "Building Materials",
       "peRatio": 23.899523,
+      "ma10": 50.34,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -528,6 +530,8 @@
       "sector": "Financial Services",
       "industry": "Insurance Brokers",
       "peRatio": 18.914474,
+      "ma10": 15.28,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -1041,6 +1045,8 @@
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
       "peRatio": 46.21698,
+      "ma10": 35.31,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-04-16",
@@ -1166,6 +1172,8 @@
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
       "peRatio": 68.76923,
+      "ma10": 26.22,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2026-04-17",
@@ -1287,6 +1295,8 @@
       "sector": "Technology",
       "industry": "Software - Infrastructure",
       "peRatio": 40.47586,
+      "ma10": 38.37,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -1800,6 +1810,8 @@
       "sector": "Consumer Cyclical",
       "industry": "Specialty Retail",
       "peRatio": 13.588235,
+      "ma10": 12.02,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-02-05",
@@ -2117,6 +2129,8 @@
       "sector": "Healthcare",
       "industry": "Biotechnology",
       "peRatio": 41.730404,
+      "ma10": 15.44,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -2630,6 +2644,8 @@
       "sector": "Technology",
       "industry": "Software - Application",
       "peRatio": 15.478261,
+      "ma10": 17.73,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -3143,6 +3159,8 @@
       "sector": "Financial Services",
       "industry": "Capital Markets",
       "peRatio": 50.61003,
+      "ma10": 118.19,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -3656,6 +3674,8 @@
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
       "peRatio": 29.696968,
+      "ma10": 15.19,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-04-23",
@@ -3761,6 +3781,8 @@
       "sector": "Industrials",
       "industry": "Rental & Leasing Services",
       "peRatio": 230.33331,
+      "ma10": 23.0,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-01-23",
@@ -4114,6 +4136,8 @@
       "sector": "Technology",
       "industry": "Software - Application",
       "peRatio": 67.34476,
+      "ma10": 21.6,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -4627,6 +4651,8 @@
       "sector": "Financial Services",
       "industry": "Capital Markets",
       "peRatio": 41.40244,
+      "ma10": 38.5,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -5140,6 +5166,8 @@
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
       "peRatio": -43.356396,
+      "ma10": 42.26,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -5653,6 +5681,8 @@
       "sector": "Real Estate",
       "industry": "REIT - Specialty",
       "peRatio": 16.384909,
+      "ma10": 6.13,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -6166,6 +6196,8 @@
       "sector": "Financial Services",
       "industry": "Capital Markets",
       "peRatio": -3.27272,
+      "ma10": 5.18,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -6679,6 +6711,8 @@
       "sector": "Healthcare",
       "industry": "Health Information Services",
       "peRatio": -111.55665,
+      "ma10": 28.89,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -7192,6 +7226,8 @@
       "sector": "Real Estate",
       "industry": "REIT - Residential",
       "peRatio": 63.967823,
+      "ma10": 26.86,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-03-20",
@@ -7389,6 +7425,8 @@
       "sector": "Consumer Defensive",
       "industry": "Packaged Foods",
       "peRatio": 8.154321,
+      "ma10": 13.23,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -7902,6 +7940,8 @@
       "sector": "Technology",
       "industry": "Software - Infrastructure",
       "peRatio": 16.904196,
+      "ma10": 15.31,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -8415,6 +8455,8 @@
       "sector": "Industrials",
       "industry": "Engineering & Construction",
       "peRatio": 46.013187,
+      "ma10": 87.88,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -8928,6 +8970,8 @@
       "sector": "Healthcare",
       "industry": "Medical Devices",
       "peRatio": 8.749863,
+      "ma10": 8.03,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-12-11",
@@ -9393,6 +9437,8 @@
       "sector": "Healthcare",
       "industry": "Medical Instruments & Supplies",
       "peRatio": 32.464912,
+      "ma10": 37.57,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-12-17",
@@ -9842,6 +9888,8 @@
       "sector": "Financial Services",
       "industry": "Capital Markets",
       "peRatio": 39.860466,
+      "ma10": 53.55,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -10355,6 +10403,8 @@
       "sector": "Consumer Defensive",
       "industry": "Packaged Foods",
       "peRatio": 28.660713,
+      "ma10": 15.61,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-12-08",
@@ -10832,6 +10882,8 @@
       "sector": "Technology",
       "industry": "Software - Application",
       "peRatio": 89.662636,
+      "ma10": 18.6,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -11345,6 +11397,8 @@
       "sector": "N/A",
       "industry": "N/A",
       "peRatio": 7.070557,
+      "ma10": 9.0,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -11858,6 +11912,8 @@
       "sector": "Technology",
       "industry": "Software - Infrastructure",
       "peRatio": 1282.7511,
+      "ma10": 11.26,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -12371,6 +12427,8 @@
       "sector": "Healthcare",
       "industry": "Health Information Services",
       "peRatio": 34.649933,
+      "ma10": 16.13,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -12884,6 +12942,8 @@
       "sector": "Financial Services",
       "industry": "Asset Management",
       "peRatio": 11.072917,
+      "ma10": 10.89,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -13397,6 +13457,8 @@
       "sector": "Healthcare",
       "industry": "Medical Devices",
       "peRatio": -1.6777776,
+      "ma10": 0.16,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -13910,6 +13972,8 @@
       "sector": "Technology",
       "industry": "Software - Application",
       "peRatio": 26.096048,
+      "ma10": 17.09,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -14423,6 +14487,8 @@
       "sector": "Technology",
       "industry": "Semiconductor Equipment & Materials",
       "peRatio": 50.459805,
+      "ma10": 156.2,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -14936,6 +15002,8 @@
       "sector": "Technology",
       "industry": "Electronic Components",
       "peRatio": 20.511675,
+      "ma10": 58.8,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -15449,6 +15517,8 @@
       "sector": "Basic Materials",
       "industry": "Specialty Chemicals",
       "peRatio": 68.70588,
+      "ma10": 84.08,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2025-11-24",
@@ -15962,6 +16032,8 @@
       "sector": "Communication Services",
       "industry": "Internet Content & Information",
       "peRatio": 13.20525,
+      "ma10": 8.85,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -16475,6 +16547,8 @@
       "sector": "Technology",
       "industry": "Software - Infrastructure",
       "peRatio": 143.92592,
+      "ma10": 32.76,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2026-03-17",
@@ -16684,6 +16758,8 @@
       "sector": "Consumer Cyclical",
       "industry": "Auto Parts",
       "peRatio": 6.147982,
+      "ma10": 43.01,
+      "aboveMA10": false,
       "history": [
         {
           "date": "2026-03-27",
@@ -16861,6 +16937,8 @@
       "sector": "Industrials",
       "industry": "Aerospace & Defense",
       "peRatio": -36.18589,
+      "ma10": 36.49,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -17374,6 +17452,8 @@
       "sector": "Communication Services",
       "industry": "Entertainment",
       "peRatio": 7.111666,
+      "ma10": 42.09,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-12-15",
@@ -17831,6 +17911,8 @@
       "sector": "Technology",
       "industry": "Software - Application",
       "peRatio": 14.823592,
+      "ma10": 11.56,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-12-15",
@@ -18288,6 +18370,8 @@
       "sector": "Technology",
       "industry": "Information Technology Services",
       "peRatio": 56.429905,
+      "ma10": 26.75,
+      "aboveMA10": true,
       "history": [
         {
           "date": "2025-11-24",
@@ -18801,6 +18885,8 @@
       "sector": "N/A",
       "industry": "N/A",
       "peRatio": null,
+      "ma10": 26.75,
+      "aboveMA10": false,
       "history": []
     }
   ]

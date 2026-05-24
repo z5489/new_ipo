@@ -12,6 +12,7 @@ const DEFAULT_FILTERS = {
   avgVolumeFloor: 1000000,       // 1M
   ipoDaysRange: 365,             // 365 days (1 year)
   sector: "All",
+  aboveMA10: false,
 };
 
 function App() {

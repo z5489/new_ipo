@@ -5,7 +5,7 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
   const handleChange = (name, value) => {
     setFilters((prev) => ({
       ...prev,
-      [name]: value === "" ? "" : (name === "sector" ? value : Number(value)),
+      [name]: value === "" ? "" : (name === "sector" || typeof value === "boolean" ? value : Number(value)),
     }));
   };
 
@@ -158,6 +158,19 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
             </div>
           </div>
+        </div>
+
+        {/* Above MA10 Toggle */}
+        <div className="flex flex-col gap-1.5 justify-end">
+          <label className="flex items-center gap-2 cursor-pointer h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
+            <input
+              type="checkbox"
+              checked={filters.aboveMA10 || false}
+              onChange={(e) => handleChange("aboveMA10", e.target.checked)}
+              className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-4 h-4"
+            />
+            <span>Price {'>'} 10-Day MA</span>
+          </label>
         </div>
 
       </div>

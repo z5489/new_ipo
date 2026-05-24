@@ -62,6 +62,12 @@ for ticker in tickers:
                 month_ago_price = float(hist["Close"].iloc[-22])
             else:
                 month_ago_price = float(hist["Close"].iloc[0])
+                
+            # Calculate MA10
+            if len(hist) >= 10:
+                ma10 = round(float(hist["Close"].tail(10).mean()), 2)
+            else:
+                ma10 = None
             
         def pct_change(current, base):
             if current is not None and base is not None and base != 0:
@@ -117,6 +123,8 @@ for ticker in tickers:
             "sector": info.get("sector") or "N/A",
             "industry": info.get("industry") or "N/A",
             "peRatio": info.get("trailingPE") or info.get("forwardPE"),
+            "ma10": ma10 if 'ma10' in locals() else None,
+            "aboveMA10": bool(price > ma10) if 'ma10' in locals() and ma10 is not None and price is not None else False,
             "history": history_data
         })
     except Exception as e:

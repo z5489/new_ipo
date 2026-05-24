@@ -170,6 +170,13 @@ export function useFilteredStocks(stocks, filters) {
         }
       }
 
+      // 6. MA10 Filter
+      if (filters.aboveMA10) {
+        if (!stock.aboveMA10) {
+          return false;
+        }
+      }
+
       return true;
     });
   }, [stocks, filters]);
