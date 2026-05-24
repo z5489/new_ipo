@@ -205,11 +205,12 @@ export function ScreenerTable({ stocks }) {
                   
                   {expandedTicker === stock.ticker && (
                     <tr className="bg-slate-900/40">
-                      <td colSpan={13} className="p-4 border-b border-slate-800/40">
+                      <td colSpan={13} className="p-0 border-b border-slate-800/40">
                         {stock.history && stock.history.length > 0 && stock.history[0].open !== undefined ? (
-                          <div className="h-[350px] w-full min-w-0" style={{ minWidth: 0 }}>
-                            <h3 className="text-sm font-semibold text-slate-300 mb-2">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
-                            <div className="h-[320px] w-full">
+                          <div className="sticky left-0 w-[calc(100vw-2rem)] md:w-[calc(100vw-4rem)] max-w-[1280px] p-4">
+                            <div className="h-[350px] w-full min-w-0" style={{ minWidth: 0 }}>
+                              <h3 className="text-sm font-semibold text-slate-300 mb-2">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
+                              <div className="h-[320px] w-full">
                               <Chart
                                 type="candlestick"
                                 height="100%"
@@ -281,7 +282,7 @@ export function ScreenerTable({ stocks }) {
                             </div>
                           </div>
                         ) : (
-                          <div className="text-center text-sm text-slate-500 py-8">
+                          <div className="sticky left-0 w-[calc(100vw-2rem)] md:w-[calc(100vw-4rem)] max-w-[1280px] text-center text-sm text-slate-500 py-8">
                             No candlestick data available for {stock.ticker}.
                           </div>
                         )}
