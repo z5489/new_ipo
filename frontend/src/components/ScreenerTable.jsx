@@ -236,7 +236,9 @@ export function ScreenerTable({ stocks }) {
                                   chart: {
                                     background: 'transparent',
                                     toolbar: { show: false },
-                                    animations: { enabled: false }
+                                    animations: { enabled: false },
+                                    zoom: { enabled: false },
+                                    pan: { enabled: false }
                                   },
                                   theme: { mode: 'dark' },
                                   xaxis: {
