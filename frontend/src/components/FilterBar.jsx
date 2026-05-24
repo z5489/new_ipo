@@ -1,11 +1,16 @@
 import React from "react";
 import { RotateCcw, Flame, TrendingUp, Layers } from "lucide-react";
 
-export function FilterBar({ filters, setFilters, defaultFilters }) {
+export function FilterBar({ filters, setFilters, defaultFilters, stocks = [] }) {
+  const sectors = React.useMemo(() => {
+    const unique = new Set(stocks.map(s => s.sector).filter(Boolean));
+    return ["All", ...Array.from(unique).sort()];
+  }, [stocks]);
+
   const handleChange = (name, value) => {
     setFilters((prev) => ({
       ...prev,
-      [name]: value === "" ? "" : Number(value),
+      [name]: (value === "" || name === "sector") ? value : Number(value),
     }));
   };
 
@@ -82,7 +87,7 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
       </div>
 
       {/* Grid of Inputs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Market Cap */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-slate-300">
@@ -133,6 +138,22 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
               Days
             </span>
           </div>
+        </div>
+
+        {/* Sector */}
+        <div className="flex flex-col gap-1.5">
+          <label className="text-xs font-medium text-slate-300">
+            Sector
+          </label>
+          <select
+            value={filters.sector || "All"}
+            onChange={(e) => handleChange("sector", e.target.value)}
+            className="w-full h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 focus:outline-none transition-all"
+          >
+            {sectors.map(s => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
         </div>
 
       </div>

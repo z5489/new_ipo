@@ -11,6 +11,7 @@ const DEFAULT_FILTERS = {
   marketCapFloor: 2000000000,    // $2B
   avgVolumeFloor: 1000000,       // 1M
   ipoDaysRange: 365,             // 365 days (1 year)
+  sector: "All",
 };
 
 function App() {
@@ -218,6 +219,7 @@ function App() {
                   filters={filters}
                   setFilters={setFilters}
                   defaultFilters={DEFAULT_FILTERS}
+                  stocks={stocks}
                 />
                 <ScreenerTable stocks={filteredStocks} />
               </div>

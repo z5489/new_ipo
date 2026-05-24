@@ -155,6 +155,13 @@ export function useFilteredStocks(stocks, filters) {
         }
       }
 
+      // 5. Sector Filter
+      if (filters.sector && filters.sector !== "All") {
+        if (stock.sector !== filters.sector) {
+          return false;
+        }
+      }
+
       return true;
     });
   }, [stocks, filters]);
