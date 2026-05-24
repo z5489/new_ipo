@@ -61,7 +61,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 p-4 md:p-6 lg:p-8 flex flex-col gap-6 max-w-7xl mx-auto">
+    <div className="min-h-screen bg-[#030712] text-slate-100 p-4 md:py-8 md:px-6 flex flex-col gap-6 max-w-7xl mx-auto">
       {/* Header Area */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800/80 pb-5">
         <div className="flex items-center gap-3">
@@ -69,8 +69,8 @@ function App() {
             <Sparkles size={20} />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              IPO Screener <span className="text-xs bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono font-medium">V1.0</span>
+            <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+              IPO Screener <span className="text-[11px] bg-slate-800 text-slate-400 px-1.5 py-[1px] rounded font-mono font-medium">V1.0</span>
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
               Live market intelligence and calendar monitoring for recent public offerings.
@@ -83,7 +83,7 @@ function App() {
           {/* Date Selector */}
           {availableDates.length > 0 && (
             <div className="flex items-center gap-2 bg-slate-900/40 border border-slate-850 px-3 h-9 rounded-lg">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500 select-none">
+              <span className="text-[11px] font-medium uppercase tracking-[0.08em] text-slate-300 opacity-60 select-none">
                 Report:
               </span>
               <select

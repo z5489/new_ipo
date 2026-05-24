@@ -105,14 +105,14 @@ export function ScreenerTable({ stocks }) {
   };
 
   const formatIPODate = (dateStr) => {
-    if (!dateStr) return <span className="text-[11px] bg-slate-800/60 text-slate-500 border border-slate-700/30 px-1.5 py-0.5 rounded-md font-mono">N/A</span>;
+    if (!dateStr) return <span className="text-[11px] bg-slate-800/60 text-slate-500 border border-slate-700/30 px-1.5 py-[1px] rounded font-mono">N/A</span>;
     return <span className="font-mono text-slate-300">{dateStr}</span>;
   };
 
   const SortHeader = ({ label, field }) => (
     <th
       onClick={() => handleSort(field)}
-      className="cursor-pointer select-none py-3 px-3 hover:bg-slate-800/40 text-slate-400 text-left font-semibold uppercase tracking-wider text-[10px] border-b border-slate-800 transition-colors whitespace-nowrap"
+      className="cursor-pointer select-none pt-2 pb-1.5 px-2.5 hover:bg-slate-800/40 text-slate-400 text-left font-semibold uppercase tracking-[0.08em] text-[10px] border-b border-slate-800 transition-colors whitespace-nowrap"
     >
       <div className="flex items-center gap-1">
         {label}
@@ -136,7 +136,7 @@ export function ScreenerTable({ stocks }) {
               {/* Sticky Ticker Column Header */}
               <th
                 onClick={() => handleSort("ticker")}
-                className="cursor-pointer select-none py-3 px-3 hover:bg-slate-800/40 text-slate-400 text-left font-semibold uppercase tracking-wider text-[10px] border-b border-slate-800 transition-colors sticky left-0 z-40 bg-slate-900 shadow-[2px_0_5px_rgba(0,0,0,0.3)] whitespace-nowrap"
+                className="cursor-pointer select-none pt-2 pb-1.5 px-2.5 hover:bg-slate-800/40 text-slate-400 text-left font-semibold uppercase tracking-[0.08em] text-[10px] border-b border-slate-800 transition-colors sticky left-0 z-40 bg-slate-900 shadow-[2px_0_5px_rgba(0,0,0,0.3)] whitespace-nowrap"
               >
                 <div className="flex items-center gap-1">
                   Ticker
@@ -178,29 +178,29 @@ export function ScreenerTable({ stocks }) {
                     className="hover:bg-slate-900/30 transition-colors duration-150 group cursor-pointer"
                   >
                     {/* Sticky Ticker Column Body */}
-                    <td className="py-2.5 px-3 sticky left-0 z-20 bg-slate-950 group-hover:bg-slate-900/60 shadow-[2px_0_5px_rgba(0,0,0,0.3)] border-r border-slate-800/40">
+                    <td className="py-1.5 px-2.5 sticky left-0 z-20 bg-slate-950 group-hover:bg-slate-900/60 shadow-[2px_0_5px_rgba(0,0,0,0.3)] border-r border-slate-800/40">
                       <div className="font-semibold text-slate-100 group-hover:text-teal-400 transition-colors">
                         {stock.ticker}
                       </div>
                     </td>
-                    <td className="py-2.5 px-3 text-slate-300 text-sm max-w-xs truncate" title={stock.name}>
+                    <td className="py-1.5 px-2.5 text-slate-300 text-sm max-w-xs truncate" title={stock.name}>
                       {stock.name}
                     </td>
-                    <td className="py-2.5 px-3 text-sm">{formatIPODate(stock.ipoDate)}</td>
-                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatMarketCap(stock.marketCap)}</td>
-                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatVolume(stock.avgVolume)}</td>
-                    <td className="py-2.5 px-3 text-sm">{formatEPSGrowth(stock.epsGrowthNextYear)}</td>
-                    <td className="py-2.5 px-3 text-sm font-mono text-slate-200 font-semibold">{formatPrice(stock.price)}</td>
-                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1d)}</td>
-                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1w)}</td>
-                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1m)}</td>
-                    <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.sector}>
+                    <td className="py-1.5 px-2.5 text-sm">{formatIPODate(stock.ipoDate)}</td>
+                    <td className="py-1.5 px-2.5 text-sm font-mono text-slate-300">{formatMarketCap(stock.marketCap)}</td>
+                    <td className="py-1.5 px-2.5 text-sm font-mono text-slate-300">{formatVolume(stock.avgVolume)}</td>
+                    <td className="py-1.5 px-2.5 text-sm">{formatEPSGrowth(stock.epsGrowthNextYear)}</td>
+                    <td className="py-1.5 px-2.5 text-sm font-mono text-slate-200 font-semibold">{formatPrice(stock.price)}</td>
+                    <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1d)}</td>
+                    <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1w)}</td>
+                    <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1m)}</td>
+                    <td className="py-1.5 px-2.5 text-xs text-slate-400 max-w-xs truncate" title={stock.sector}>
                       {stock.sector}
                     </td>
-                    <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.industry}>
+                    <td className="py-1.5 px-2.5 text-xs text-slate-400 max-w-xs truncate" title={stock.industry}>
                       {stock.industry}
                     </td>
-                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatPE(stock.peRatio)}</td>
+                    <td className="py-1.5 px-2.5 text-sm font-mono text-slate-300">{formatPE(stock.peRatio)}</td>
                   </tr>
                   
                   {expandedTicker === stock.ticker && (
