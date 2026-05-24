@@ -105,15 +105,7 @@ export function useScreenerData() {
 export function useFilteredStocks(stocks, filters) {
   return useMemo(() => {
     return stocks.filter((stock) => {
-      // 1. Market Cap Filter
-      if (filters.marketCapFloor !== "" && filters.marketCapFloor !== null && filters.marketCapFloor !== undefined) {
-        if (stock.marketCap === null || stock.marketCap === undefined) {
-          return false; // exclude missing
-        }
-        if (stock.marketCap < Number(filters.marketCapFloor)) {
-          return false;
-        }
-      }
+
 
       // 2. Volume Filter
       if (filters.avgVolumeFloor !== "" && filters.avgVolumeFloor !== null && filters.avgVolumeFloor !== undefined) {
@@ -125,17 +117,7 @@ export function useFilteredStocks(stocks, filters) {
         }
       }
 
-      // 3. EPS Growth Filter
-      if (filters.epsGrowthFloor !== "" && filters.epsGrowthFloor !== null && filters.epsGrowthFloor !== undefined) {
-        if (stock.epsGrowthNextYear === null || stock.epsGrowthNextYear === undefined) {
-          return false; // exclude missing
-        }
-        // yfinance EPS growth is decimal (e.g. 0.15 for 15%). Filter floor is in % (e.g. 0 for 0%).
-        const epsGrowthPct = stock.epsGrowthNextYear * 100;
-        if (epsGrowthPct < Number(filters.epsGrowthFloor)) {
-          return false;
-        }
-      }
+
 
       // 4. IPO Date Range Filter (within last X days)
       if (filters.ipoDaysRange !== "" && filters.ipoDaysRange !== null && filters.ipoDaysRange !== undefined) {

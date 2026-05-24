@@ -5,7 +5,7 @@ export function ScreenerTable({ stocks }) {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 25;
+  const itemsPerPage = 50;
 
   // Sorting logic
   const handleSort = (field) => {

@@ -35,18 +35,7 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
 
         {/* Quick Presets */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <button
-            onClick={() =>
-              applyPreset({
-                marketCapFloor: 10000000000, // $10B
-                epsGrowthFloor: 10,          // >10%
-              })
-            }
-            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-purple-300 hover:text-purple-200 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 rounded-full transition-all duration-200"
-          >
-            <TrendingUp size={12} />
-            Mega Cap Growth
-          </button>
+
           
           <button
             onClick={() =>
@@ -84,26 +73,7 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
       </div>
 
       {/* Grid of Inputs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Market Cap */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            Min Market Cap ($)
-          </label>
-          <div className="relative">
-            <input
-              type="number"
-              value={filters.marketCapFloor}
-              onChange={(e) => handleChange("marketCapFloor", e.target.value)}
-              className="w-full h-9 pl-3 pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
-              placeholder="e.g. 2000000000"
-            />
-            <span className="absolute right-3 top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
-              USD
-            </span>
-          </div>
-        </div>
-
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Avg Volume */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-slate-300">
@@ -137,24 +107,6 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
           </div>
         </div>
 
-        {/* EPS Growth Floor */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            Min EPS Growth Next Year (%)
-          </label>
-          <div className="relative">
-            <input
-              type="number"
-              value={filters.epsGrowthFloor}
-              onChange={(e) => handleChange("epsGrowthFloor", e.target.value)}
-              className="w-full h-9 pl-3 pr-8 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
-              placeholder="e.g. 0"
-            />
-            <span className="absolute right-3 top-2 text-xs text-slate-500 font-mono select-none">
-              %
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
