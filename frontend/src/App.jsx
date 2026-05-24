@@ -13,6 +13,9 @@ const DEFAULT_FILTERS = {
   ipoDaysRange: 365,             // 365 days (1 year)
   sector: "All",
   aboveMA10: true,
+  aboveMA20: false,
+  rsiMin: 0,
+  rsiMax: 100,
 };
 
 function App() {

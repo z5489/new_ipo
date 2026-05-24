@@ -94,98 +94,153 @@ export function FilterBar({ filters, setFilters, defaultFilters, availableSector
         </div>
       </div>
 
-      {/* Grid of Inputs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        {/* Market Cap */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            Min Market Cap ($)
-          </label>
-          <div className="relative">
-            <input
-              type="text"
-              value={formatNumber(filters.marketCapFloor)}
-              onChange={(e) => handleNumberChange("marketCapFloor", e.target.value)}
-              className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-12 sm:pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
-              placeholder="e.g. 2,000,000,000"
-            />
-            <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
-              USD
-            </span>
-          </div>
-        </div>
+      <div className="flex flex-col gap-5">
+        {/* Fundamental Row */}
+        <div>
+          <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Fundamental Filters</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {/* Market Cap */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-slate-300">
+                Min Market Cap ($)
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={formatNumber(filters.marketCapFloor)}
+                  onChange={(e) => handleNumberChange("marketCapFloor", e.target.value)}
+                  className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-12 sm:pr-10 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+                  placeholder="e.g. 2,000,000,000"
+                />
+                <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
+                  USD
+                </span>
+              </div>
+            </div>
 
-        {/* Avg Volume */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            Min 30-Day Avg Volume
-          </label>
-          <input
-            type="text"
-            value={formatNumber(filters.avgVolumeFloor)}
-            onChange={(e) => handleNumberChange("avgVolumeFloor", e.target.value)}
-            className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
-            placeholder="e.g. 1,000,000"
-          />
-        </div>
+            {/* Avg Volume */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-slate-300">
+                Min 30-Day Avg Volume
+              </label>
+              <input
+                type="text"
+                value={formatNumber(filters.avgVolumeFloor)}
+                onChange={(e) => handleNumberChange("avgVolumeFloor", e.target.value)}
+                className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+                placeholder="e.g. 1,000,000"
+              />
+            </div>
 
-        {/* IPO Days Range */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            IPO Date Window (Last X Days)
-          </label>
-          <div className="relative">
-            <input
-              type="number"
-              value={filters.ipoDaysRange}
-              onChange={(e) => handleChange("ipoDaysRange", e.target.value)}
-              className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-14 sm:pr-12 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
-              placeholder="e.g. 365"
-            />
-            <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
-              Days
-            </span>
-          </div>
-        </div>
+            {/* IPO Days Range */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-slate-300">
+                IPO Date Window (Last X Days)
+              </label>
+              <div className="relative">
+                <input
+                  type="number"
+                  value={filters.ipoDaysRange}
+                  onChange={(e) => handleChange("ipoDaysRange", e.target.value)}
+                  className="w-full h-11 sm:h-9 pl-4 sm:pl-3 pr-14 sm:pr-12 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+                  placeholder="e.g. 365"
+                />
+                <span className="absolute right-4 sm:right-3 top-3.5 sm:top-2 text-[10px] text-slate-600 uppercase font-mono select-none">
+                  Days
+                </span>
+              </div>
+            </div>
 
-        {/* Sector Filter */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-medium text-slate-300">
-            Sector
-          </label>
-          <div className="relative">
-            <select
-              value={filters.sector || "All"}
-              onChange={(e) => handleChange("sector", e.target.value)}
-              className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all appearance-none cursor-pointer"
-            >
-              <option value="All">All Sectors</option>
-              {availableSectors.map((sec) => (
-                <option key={sec} value={sec}>
-                  {sec}
-                </option>
-              ))}
-            </select>
-            {/* Custom arrow */}
-            <div className="absolute right-4 sm:right-3 top-3.5 sm:top-2.5 pointer-events-none text-slate-500">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            {/* Sector Filter */}
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-slate-300">
+                Sector
+              </label>
+              <div className="relative">
+                <select
+                  value={filters.sector || "All"}
+                  onChange={(e) => handleChange("sector", e.target.value)}
+                  className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all appearance-none cursor-pointer"
+                >
+                  <option value="All">All Sectors</option>
+                  {availableSectors.map((sec) => (
+                    <option key={sec} value={sec}>
+                      {sec}
+                    </option>
+                  ))}
+                </select>
+                {/* Custom arrow */}
+                <div className="absolute right-4 sm:right-3 top-3.5 sm:top-2.5 pointer-events-none text-slate-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Above MA10 Toggle */}
-        <div className="flex flex-col gap-1.5 justify-end">
-          <label className="flex items-center gap-2 cursor-pointer h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
-            <input
-              type="checkbox"
-              checked={filters.aboveMA10 || false}
-              onChange={(e) => handleChange("aboveMA10", e.target.checked)}
-              className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-5 h-5 sm:w-4 sm:h-4"
-            />
-            <span>Price {'>'} 10-Day MA</span>
-          </label>
-        </div>
+        {/* Technical Row */}
+        <div>
+          <h3 className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Technical Filters</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {/* Above MA10 Toggle */}
+            <div className="flex flex-col gap-1.5 justify-end">
+              <label className="flex items-center gap-2 cursor-pointer h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
+                <input
+                  type="checkbox"
+                  checked={filters.aboveMA10 || false}
+                  onChange={(e) => handleChange("aboveMA10", e.target.checked)}
+                  className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-5 h-5 sm:w-4 sm:h-4"
+                />
+                <span>Price {'>'} 10-Day MA</span>
+              </label>
+            </div>
 
+            {/* Above MA20 Toggle */}
+            <div className="flex flex-col gap-1.5 justify-end">
+              <label className="flex items-center gap-2 cursor-pointer h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 rounded-lg text-sm text-slate-200 select-none transition-colors">
+                <input
+                  type="checkbox"
+                  checked={filters.aboveMA20 || false}
+                  onChange={(e) => handleChange("aboveMA20", e.target.checked)}
+                  className="rounded bg-slate-900 border-slate-700 text-teal-500 focus:ring-teal-500/30 w-5 h-5 sm:w-4 sm:h-4"
+                />
+                <span>Price {'>'} 20-Day MA</span>
+              </label>
+            </div>
+
+            {/* Min RSI */}
+            <div className="flex flex-col gap-1.5 justify-end">
+              <label className="text-xs font-medium text-slate-300">
+                Min RSI (14)
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={filters.rsiMin}
+                onChange={(e) => handleChange("rsiMin", e.target.value)}
+                className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+                placeholder="0"
+              />
+            </div>
+
+            {/* Max RSI */}
+            <div className="flex flex-col gap-1.5 justify-end">
+              <label className="text-xs font-medium text-slate-300">
+                Max RSI (14)
+              </label>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={filters.rsiMax}
+                onChange={(e) => handleChange("rsiMax", e.target.value)}
+                className="w-full h-11 sm:h-9 px-4 sm:px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all"
+                placeholder="100"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

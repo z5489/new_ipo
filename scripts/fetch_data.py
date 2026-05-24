@@ -64,11 +64,16 @@ for ticker in tickers:
             else:
                 month_ago_price = float(hist["Close"].iloc[0])
                 
-            # Calculate MA10
+            # Calculate MA10 and MA20
             if len(hist) >= 10:
                 ma10 = round(float(hist["Close"].tail(10).mean()), 2)
             else:
                 ma10 = None
+                
+            if len(hist) >= 20:
+                ma20 = round(float(hist["Close"].tail(20).mean()), 2)
+            else:
+                ma20 = None
             
         def pct_change(current, base):
             if current is not None and base is not None and base != 0:
@@ -101,9 +106,23 @@ for ticker in tickers:
 
         # Extract 6mo daily price history
         history_data = []
+        rsi_latest = None
         if not hist.empty:
             # Calculate rolling MA10 for the entire history
             hist["MA10_Rolling"] = hist["Close"].rolling(window=10).mean()
+            hist["MA20_Rolling"] = hist["Close"].rolling(window=20).mean()
+            
+            delta = hist["Close"].diff()
+            gain = delta.where(delta > 0, 0.0)
+            loss = -delta.where(delta < 0, 0.0)
+            avg_gain = gain.ewm(com=13, adjust=False).mean()
+            avg_loss = loss.ewm(com=13, adjust=False).mean()
+            rs = avg_gain / avg_loss
+            hist["RSI"] = 100 - (100 / (1 + rs))
+            
+            # Extract latest RSI
+            if len(hist) > 14 and not pd.isna(hist["RSI"].iloc[-1]):
+                rsi_latest = round(float(hist["RSI"].iloc[-1]), 2)
             
             for date_idx, row in hist.iterrows():
                 try:
@@ -114,7 +133,9 @@ for ticker in tickers:
                         "high": round(float(row["High"]), 2),
                         "low": round(float(row["Low"]), 2),
                         "close": round(float(row["Close"]), 2),
-                        "ma10": round(float(row["MA10_Rolling"]), 2) if not pd.isna(row["MA10_Rolling"]) else None
+                        "ma10": round(float(row["MA10_Rolling"]), 2) if not pd.isna(row["MA10_Rolling"]) else None,
+                        "ma20": round(float(row["MA20_Rolling"]), 2) if not pd.isna(row["MA20_Rolling"]) else None,
+                        "rsi": round(float(row["RSI"]), 2) if not pd.isna(row["RSI"]) else None
                     })
                 except Exception as e:
                     pass
@@ -136,6 +157,9 @@ for ticker in tickers:
             "peRatio": info.get("trailingPE") or info.get("forwardPE"),
             "ma10": ma10 if 'ma10' in locals() else None,
             "aboveMA10": bool(price > ma10) if 'ma10' in locals() and ma10 is not None and price is not None else False,
+            "ma20": ma20 if 'ma20' in locals() else None,
+            "aboveMA20": bool(price > ma20) if 'ma20' in locals() and ma20 is not None and price is not None else False,
+            "rsi": rsi_latest,
             "history": history_data
         })
     except Exception as e:

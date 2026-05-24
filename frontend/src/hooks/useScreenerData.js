@@ -177,6 +177,25 @@ export function useFilteredStocks(stocks, filters) {
         }
       }
 
+      // 7. MA20 Filter
+      if (filters.aboveMA20) {
+        if (!stock.aboveMA20) {
+          return false;
+        }
+      }
+
+      // 8. RSI Filter
+      if (filters.rsiMin !== "" && filters.rsiMin !== null && filters.rsiMin !== undefined) {
+        if (stock.rsi === null || stock.rsi === undefined || stock.rsi < Number(filters.rsiMin)) {
+          return false;
+        }
+      }
+      if (filters.rsiMax !== "" && filters.rsiMax !== null && filters.rsiMax !== undefined) {
+        if (stock.rsi === null || stock.rsi === undefined || stock.rsi > Number(filters.rsiMax)) {
+          return false;
+        }
+      }
+
       return true;
     });
   }, [stocks, filters]);

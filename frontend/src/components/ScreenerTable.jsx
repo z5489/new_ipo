@@ -158,6 +158,7 @@ export function ScreenerTable({ stocks }) {
               <SortHeader label="1D Chg" field="change1d" />
               <SortHeader label="1W Chg" field="change1w" />
               <SortHeader label="1M Chg" field="change1m" />
+              <SortHeader label="RSI" field="rsi" />
               <SortHeader label="Sector" field="sector" />
               <SortHeader label="Industry" field="industry" />
               <SortHeader label="P/E" field="peRatio" />
@@ -166,7 +167,7 @@ export function ScreenerTable({ stocks }) {
           <tbody className="divide-y divide-slate-800/50 bg-slate-950/20">
             {paginatedStocks.length === 0 ? (
               <tr>
-                <td colSpan={13} className="text-center py-8 text-slate-500 text-sm">
+                <td colSpan={14} className="text-center py-8 text-slate-500 text-sm">
                   No stocks match the screening criteria.
                 </td>
               </tr>
@@ -194,6 +195,7 @@ export function ScreenerTable({ stocks }) {
                     <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1d)}</td>
                     <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1w)}</td>
                     <td className="py-1.5 px-2.5 text-sm">{formatPriceChange(stock.change1m)}</td>
+                    <td className="py-1.5 px-2.5 text-sm font-mono text-slate-300">{stock.rsi !== null && stock.rsi !== undefined ? stock.rsi : '-'}</td>
                     <td className="py-1.5 px-2.5 text-xs text-slate-400 max-w-xs truncate" title={stock.sector}>
                       {stock.sector}
                     </td>
@@ -205,7 +207,7 @@ export function ScreenerTable({ stocks }) {
                   
                   {expandedTicker === stock.ticker && (
                     <tr className="bg-slate-900/40">
-                      <td colSpan={13} className="p-0 border-b border-slate-800/40">
+                      <td colSpan={14} className="p-0 border-b border-slate-800/40">
                         {stock.history && stock.history.length > 0 && stock.history[0].open !== undefined ? (
                           <div className="sticky left-0 w-[calc(100vw-2rem)] md:w-[calc(100vw-4rem)] max-w-[1280px] p-4">
                             <div className="h-[350px] w-full min-w-0" style={{ minWidth: 0 }}>
@@ -230,6 +232,14 @@ export function ScreenerTable({ stocks }) {
                                     data: stock.history.map(d => ({
                                       x: new Date(d.date),
                                       y: d.ma10
+                                    }))
+                                  },
+                                  {
+                                    name: "20-Day MA",
+                                    type: "line",
+                                    data: stock.history.map(d => ({
+                                      x: new Date(d.date),
+                                      y: d.ma20
                                     }))
                                   }
                                 ]}
