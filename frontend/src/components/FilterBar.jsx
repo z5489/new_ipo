@@ -34,9 +34,18 @@ export function FilterBar({ filters, setFilters, defaultFilters }) {
         </div>
 
         {/* Quick Presets */}
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">          <button
+            onClick={() =>
+              applyPreset({
+                marketCapFloor: 10000000000, // $10B
+              })
+            }
+            className="flex items-center gap-1 px-2.5 py-1 text-[11px] font-medium text-purple-300 hover:text-purple-200 bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 rounded-full transition-all duration-200"
+          >
+            <TrendingUp size={12} />
+            Mega Cap
+          </button>
 
-          
           <button
             onClick={() =>
               applyPreset({
