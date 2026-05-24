@@ -3,6 +3,7 @@ import requests
 import json
 import csv
 import os
+import pandas as pd
 from datetime import datetime, timedelta
 
 # Try to get the API key
