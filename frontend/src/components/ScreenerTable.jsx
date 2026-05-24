@@ -207,9 +207,9 @@ export function ScreenerTable({ stocks }) {
                     <tr className="bg-slate-900/40">
                       <td colSpan={13} className="p-4 border-b border-slate-800/40">
                         {stock.history && stock.history.length > 0 ? (
-                          <div className="h-64 w-full">
+                          <div className="h-64 w-full min-w-0" style={{ minWidth: 0 }}>
                             <h3 className="text-sm font-semibold text-slate-300 mb-4">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
-                            <ResponsiveContainer width="100%" height="100%">
+                            <ResponsiveContainer width="99%" height="100%">
                               <AreaChart data={stock.history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                                 <defs>
                                   <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
