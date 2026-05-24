@@ -85,11 +85,19 @@ export function useScreenerData() {
     }
   };
 
+  // Compute unique sectors from current stocks
+  const availableSectors = useMemo(() => {
+    if (!stocks || stocks.length === 0) return [];
+    const sectors = new Set(stocks.map((s) => s.sector).filter(Boolean));
+    return Array.from(sectors).sort();
+  }, [stocks]);
+
   return {
     availableDates,
     selectedDate,
     setSelectedDate,
     stocks,
+    availableSectors,
     upcomingIpos,
     lastUpdated,
     upcomingLastUpdated,

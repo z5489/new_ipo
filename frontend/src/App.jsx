@@ -20,6 +20,7 @@ function App() {
     selectedDate,
     setSelectedDate,
     stocks,
+    availableSectors,
     upcomingIpos,
     lastUpdated,
     upcomingLastUpdated,
@@ -219,7 +220,7 @@ function App() {
                   filters={filters}
                   setFilters={setFilters}
                   defaultFilters={DEFAULT_FILTERS}
-                  stocks={stocks}
+                  availableSectors={availableSectors}
                 />
                 <ScreenerTable stocks={filteredStocks} />
               </div>

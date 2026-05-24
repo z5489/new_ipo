@@ -1,16 +1,11 @@
 import React from "react";
 import { RotateCcw, Flame, TrendingUp, Layers } from "lucide-react";
 
-export function FilterBar({ filters, setFilters, defaultFilters, stocks = [] }) {
-  const sectors = React.useMemo(() => {
-    const unique = new Set(stocks.map(s => s.sector).filter(Boolean));
-    return ["All", ...Array.from(unique).sort()];
-  }, [stocks]);
-
+export function FilterBar({ filters, setFilters, defaultFilters, availableSectors = [] }) {
   const handleChange = (name, value) => {
     setFilters((prev) => ({
       ...prev,
-      [name]: (value === "" || name === "sector") ? value : Number(value),
+      [name]: value === "" ? "" : (name === "sector" ? value : Number(value)),
     }));
   };
 
@@ -140,20 +135,29 @@ export function FilterBar({ filters, setFilters, defaultFilters, stocks = [] }) 
           </div>
         </div>
 
-        {/* Sector */}
+        {/* Sector Filter */}
         <div className="flex flex-col gap-1.5">
           <label className="text-xs font-medium text-slate-300">
             Sector
           </label>
-          <select
-            value={filters.sector || "All"}
-            onChange={(e) => handleChange("sector", e.target.value)}
-            className="w-full h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 focus:outline-none transition-all"
-          >
-            {sectors.map(s => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              value={filters.sector || "All"}
+              onChange={(e) => handleChange("sector", e.target.value)}
+              className="w-full h-9 px-3 bg-slate-950/80 border border-slate-800 hover:border-slate-700 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 rounded-lg text-sm text-slate-200 placeholder-slate-600 focus:outline-none transition-all appearance-none cursor-pointer"
+            >
+              <option value="All">All Sectors</option>
+              {availableSectors.map((sec) => (
+                <option key={sec} value={sec}>
+                  {sec}
+                </option>
+              ))}
+            </select>
+            {/* Custom arrow */}
+            <div className="absolute right-3 top-2.5 pointer-events-none text-slate-500">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </div>
+          </div>
         </div>
 
       </div>

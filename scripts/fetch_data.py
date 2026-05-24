@@ -36,8 +36,8 @@ for ticker in tickers:
         ticker_obj = yf.Ticker(ticker)
         info = ticker_obj.info or {}
         
-        # Get history (1 month) to calculate changes and fallback dates
-        hist = ticker_obj.history(period="1mo")
+        # Get history (6 months) to calculate changes, fallback dates, and charts
+        hist = ticker_obj.history(period="6mo")
         
         # Extract prices
         price = info.get("currentPrice") or info.get("regularMarketPrice")
@@ -58,7 +58,10 @@ for ticker in tickers:
             else:
                 week_ago_price = float(hist["Close"].iloc[0])
                 
-            month_ago_price = float(hist["Close"].iloc[0])
+            if len(hist) >= 22:
+                month_ago_price = float(hist["Close"].iloc[-22])
+            else:
+                month_ago_price = float(hist["Close"].iloc[0])
             
         def pct_change(current, base):
             if current is not None and base is not None and base != 0:
@@ -89,6 +92,16 @@ for ticker in tickers:
             except Exception as ex:
                 print(f"Error fallback date for {ticker}: {ex}")
 
+        # Extract 6mo daily price history
+        history_data = []
+        if not hist.empty:
+            for date_idx, row in hist.iterrows():
+                try:
+                    d_str = date_idx.strftime("%Y-%m-%d")
+                    history_data.append({"date": d_str, "price": round(float(row["Close"]), 2)})
+                except:
+                    pass
+
         # Build data record
         results.append({
             "ticker": ticker,
@@ -104,6 +117,7 @@ for ticker in tickers:
             "sector": info.get("sector") or "N/A",
             "industry": info.get("industry") or "N/A",
             "peRatio": info.get("trailingPE") or info.get("forwardPE"),
+            "history": history_data
         })
     except Exception as e:
         print(f"Error fetching {ticker}: {e}")
@@ -121,6 +135,7 @@ for ticker in tickers:
             "sector": "N/A",
             "industry": "N/A",
             "peRatio": None,
+            "history": [],
             "error": str(e)
         })
 

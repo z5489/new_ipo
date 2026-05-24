@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from "react";
 import { ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 export function ScreenerTable({ stocks }) {
   const [sortField, setSortField] = useState("");
   const [sortDirection, setSortDirection] = useState("desc");
   const [currentPage, setCurrentPage] = useState(1);
+  const [expandedTicker, setExpandedTicker] = useState(null);
   const itemsPerPage = 50;
 
   // Sorting logic
@@ -170,35 +172,91 @@ export function ScreenerTable({ stocks }) {
               </tr>
             ) : (
               paginatedStocks.map((stock) => (
-                <tr
-                  key={stock.ticker}
-                  className="hover:bg-slate-900/30 transition-colors duration-150 group"
-                >
-                  {/* Sticky Ticker Column Body */}
-                  <td className="py-2.5 px-3 sticky left-0 z-20 bg-slate-950 group-hover:bg-slate-900/60 shadow-[2px_0_5px_rgba(0,0,0,0.3)] border-r border-slate-800/40">
-                    <div className="font-semibold text-slate-100 group-hover:text-teal-400 transition-colors">
-                      {stock.ticker}
-                    </div>
-                  </td>
-                  <td className="py-2.5 px-3 text-slate-300 text-sm max-w-xs truncate" title={stock.name}>
-                    {stock.name}
-                  </td>
-                  <td className="py-2.5 px-3 text-sm">{formatIPODate(stock.ipoDate)}</td>
-                  <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatMarketCap(stock.marketCap)}</td>
-                  <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatVolume(stock.avgVolume)}</td>
-                  <td className="py-2.5 px-3 text-sm">{formatEPSGrowth(stock.epsGrowthNextYear)}</td>
-                  <td className="py-2.5 px-3 text-sm font-mono text-slate-200 font-semibold">{formatPrice(stock.price)}</td>
-                  <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1d)}</td>
-                  <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1w)}</td>
-                  <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1m)}</td>
-                  <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.sector}>
-                    {stock.sector}
-                  </td>
-                  <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.industry}>
-                    {stock.industry}
-                  </td>
-                  <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatPE(stock.peRatio)}</td>
-                </tr>
+                <React.Fragment key={stock.ticker}>
+                  <tr
+                    onClick={() => setExpandedTicker(expandedTicker === stock.ticker ? null : stock.ticker)}
+                    className="hover:bg-slate-900/30 transition-colors duration-150 group cursor-pointer"
+                  >
+                    {/* Sticky Ticker Column Body */}
+                    <td className="py-2.5 px-3 sticky left-0 z-20 bg-slate-950 group-hover:bg-slate-900/60 shadow-[2px_0_5px_rgba(0,0,0,0.3)] border-r border-slate-800/40">
+                      <div className="font-semibold text-slate-100 group-hover:text-teal-400 transition-colors">
+                        {stock.ticker}
+                      </div>
+                    </td>
+                    <td className="py-2.5 px-3 text-slate-300 text-sm max-w-xs truncate" title={stock.name}>
+                      {stock.name}
+                    </td>
+                    <td className="py-2.5 px-3 text-sm">{formatIPODate(stock.ipoDate)}</td>
+                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatMarketCap(stock.marketCap)}</td>
+                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatVolume(stock.avgVolume)}</td>
+                    <td className="py-2.5 px-3 text-sm">{formatEPSGrowth(stock.epsGrowthNextYear)}</td>
+                    <td className="py-2.5 px-3 text-sm font-mono text-slate-200 font-semibold">{formatPrice(stock.price)}</td>
+                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1d)}</td>
+                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1w)}</td>
+                    <td className="py-2.5 px-3 text-sm">{formatPriceChange(stock.change1m)}</td>
+                    <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.sector}>
+                      {stock.sector}
+                    </td>
+                    <td className="py-2.5 px-3 text-xs text-slate-400 max-w-xs truncate" title={stock.industry}>
+                      {stock.industry}
+                    </td>
+                    <td className="py-2.5 px-3 text-sm font-mono text-slate-300">{formatPE(stock.peRatio)}</td>
+                  </tr>
+                  
+                  {expandedTicker === stock.ticker && (
+                    <tr className="bg-slate-900/40">
+                      <td colSpan={13} className="p-4 border-b border-slate-800/40">
+                        {stock.history && stock.history.length > 0 ? (
+                          <div className="h-64 w-full">
+                            <h3 className="text-sm font-semibold text-slate-300 mb-4">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart data={stock.history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                <defs>
+                                  <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#2dd4bf" stopOpacity={0.3}/>
+                                    <stop offset="95%" stopColor="#2dd4bf" stopOpacity={0}/>
+                                  </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
+                                <XAxis 
+                                  dataKey="date" 
+                                  stroke="#475569" 
+                                  fontSize={11} 
+                                  tickLine={false} 
+                                  axisLine={false}
+                                  minTickGap={30}
+                                  tickFormatter={(val) => {
+                                    if (!val) return "";
+                                    const date = new Date(val);
+                                    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+                                  }}
+                                />
+                                <YAxis 
+                                  domain={['auto', 'auto']} 
+                                  stroke="#475569" 
+                                  fontSize={11} 
+                                  tickLine={false} 
+                                  axisLine={false}
+                                  tickFormatter={(val) => `$${val}`}
+                                />
+                                <Tooltip 
+                                  contentStyle={{ backgroundColor: "#020617", borderColor: "#1e293b", borderRadius: "8px", fontSize: "12px" }}
+                                  itemStyle={{ color: "#2dd4bf", fontWeight: "600" }}
+                                  labelStyle={{ color: "#94a3b8", marginBottom: "4px" }}
+                                />
+                                <Area type="monotone" dataKey="price" stroke="#2dd4bf" strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          </div>
+                        ) : (
+                          <div className="text-center text-sm text-slate-500 py-8">
+                            No historical data available for {stock.ticker}.
+                          </div>
+                        )}
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))
             )}
           </tbody>
