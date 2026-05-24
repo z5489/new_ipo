@@ -101,11 +101,21 @@ for ticker in tickers:
         # Extract 6mo daily price history
         history_data = []
         if not hist.empty:
+            # Calculate rolling MA10 for the entire history
+            hist["MA10_Rolling"] = hist["Close"].rolling(window=10).mean()
+            
             for date_idx, row in hist.iterrows():
                 try:
                     d_str = date_idx.strftime("%Y-%m-%d")
-                    history_data.append({"date": d_str, "price": round(float(row["Close"]), 2)})
-                except:
+                    history_data.append({
+                        "date": d_str,
+                        "open": round(float(row["Open"]), 2),
+                        "high": round(float(row["High"]), 2),
+                        "low": round(float(row["Low"]), 2),
+                        "close": round(float(row["Close"]), 2),
+                        "ma10": round(float(row["MA10_Rolling"]), 2) if not pd.isna(row["MA10_Rolling"]) else None
+                    })
+                except Exception as e:
                     pass
 
         # Build data record

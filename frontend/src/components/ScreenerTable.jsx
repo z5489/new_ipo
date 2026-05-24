@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { ArrowUpDown, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
-import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
+import Chart from "react-apexcharts";
 
 export function ScreenerTable({ stocks }) {
   const [sortField, setSortField] = useState("");
@@ -206,51 +206,81 @@ export function ScreenerTable({ stocks }) {
                   {expandedTicker === stock.ticker && (
                     <tr className="bg-slate-900/40">
                       <td colSpan={13} className="p-4 border-b border-slate-800/40">
-                        {stock.history && stock.history.length > 0 ? (
-                          <div className="h-64 w-full min-w-0" style={{ minWidth: 0 }}>
-                            <h3 className="text-sm font-semibold text-slate-300 mb-4">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
-                            <ResponsiveContainer width="99%" height="100%">
-                              <AreaChart data={stock.history} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                <defs>
-                                  <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#2dd4bf" stopOpacity={0.3}/>
-                                    <stop offset="95%" stopColor="#2dd4bf" stopOpacity={0}/>
-                                  </linearGradient>
-                                </defs>
-                                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                                <XAxis 
-                                  dataKey="date" 
-                                  stroke="#475569" 
-                                  fontSize={11} 
-                                  tickLine={false} 
-                                  axisLine={false}
-                                  minTickGap={30}
-                                  tickFormatter={(val) => {
-                                    if (!val) return "";
-                                    const date = new Date(val);
-                                    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-                                  }}
-                                />
-                                <YAxis 
-                                  domain={['auto', 'auto']} 
-                                  stroke="#475569" 
-                                  fontSize={11} 
-                                  tickLine={false} 
-                                  axisLine={false}
-                                  tickFormatter={(val) => `$${val}`}
-                                />
-                                <Tooltip 
-                                  contentStyle={{ backgroundColor: "#020617", borderColor: "#1e293b", borderRadius: "8px", fontSize: "12px" }}
-                                  itemStyle={{ color: "#2dd4bf", fontWeight: "600" }}
-                                  labelStyle={{ color: "#94a3b8", marginBottom: "4px" }}
-                                />
-                                <Area type="monotone" dataKey="price" stroke="#2dd4bf" strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
-                              </AreaChart>
-                            </ResponsiveContainer>
+                        {stock.history && stock.history.length > 0 && stock.history[0].open !== undefined ? (
+                          <div className="h-[350px] w-full min-w-0" style={{ minWidth: 0 }}>
+                            <h3 className="text-sm font-semibold text-slate-300 mb-2">{stock.name} ({stock.ticker}) - 6 Month Price History</h3>
+                            <div className="h-[320px] w-full">
+                              <Chart
+                                type="candlestick"
+                                height="100%"
+                                width="100%"
+                                series={[
+                                  {
+                                    name: "Price",
+                                    type: "candlestick",
+                                    data: stock.history.map(d => ({
+                                      x: new Date(d.date),
+                                      y: [d.open, d.high, d.low, d.close]
+                                    }))
+                                  },
+                                  {
+                                    name: "10-Day MA",
+                                    type: "line",
+                                    data: stock.history.map(d => ({
+                                      x: new Date(d.date),
+                                      y: d.ma10
+                                    }))
+                                  }
+                                ]}
+                                options={{
+                                  chart: {
+                                    background: 'transparent',
+                                    toolbar: { show: false },
+                                    animations: { enabled: false }
+                                  },
+                                  theme: { mode: 'dark' },
+                                  xaxis: {
+                                    type: 'datetime',
+                                    labels: { style: { colors: '#94a3b8' } },
+                                    axisBorder: { show: false },
+                                    axisTicks: { show: false }
+                                  },
+                                  yaxis: {
+                                    tooltip: { enabled: true },
+                                    labels: {
+                                      style: { colors: '#94a3b8' },
+                                      formatter: (val) => `$${val.toFixed(2)}`
+                                    }
+                                  },
+                                  grid: {
+                                    borderColor: '#1e293b',
+                                    strokeDashArray: 3,
+                                  },
+                                  plotOptions: {
+                                    candlestick: {
+                                      colors: {
+                                        upward: '#2dd4bf',
+                                        downward: '#f43f5e'
+                                      },
+                                      wick: { useFillColor: true }
+                                    }
+                                  },
+                                  stroke: {
+                                    width: [1, 2],
+                                    curve: 'smooth'
+                                  },
+                                  colors: ['#2dd4bf', '#f59e0b'],
+                                  tooltip: {
+                                    theme: 'dark',
+                                    shared: true
+                                  }
+                                }}
+                              />
+                            </div>
                           </div>
                         ) : (
                           <div className="text-center text-sm text-slate-500 py-8">
-                            No historical data available for {stock.ticker}.
+                            No candlestick data available for {stock.ticker}.
                           </div>
                         )}
                       </td>
