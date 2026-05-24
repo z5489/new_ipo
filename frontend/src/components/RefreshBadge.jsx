@@ -1,12 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { RefreshCw, CheckCircle, AlertCircle, Info } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { RefreshCw, CheckCircle } from "lucide-react";
 
 export function RefreshBadge({ lastUpdated, refetch }) {
-  const [status, setStatus] = useState("idle"); // idle, triggering, triggered, polling, success, error
-  const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState("idle"); // idle, loading, success
   const [relativeTime, setRelativeTime] = useState("");
-  const initialLastUpdatedRef = useRef(lastUpdated);
-
 
   // 1. Calculate relative time
   useEffect(() => {
@@ -33,71 +30,13 @@ export function RefreshBadge({ lastUpdated, refetch }) {
     return () => clearInterval(interval);
   }, [lastUpdated]);
 
-  // 2. Poll data.json once triggered to see when lastUpdated updates
-  useEffect(() => {
-    if (status !== "polling") return;
-
-    let pollCount = 0;
-    const maxPolls = 18; // 18 * 10 seconds = 3 minutes max
-
-    const interval = setInterval(async () => {
-      pollCount++;
-      try {
-        const res = await refetch();
-        // Since refetch updates state in parent, we can check if it changed.
-        // Wait, parent's lastUpdated state might change. Let's compare with the initial value before refresh.
-        // If they differ, it means new data landed!
-      } catch (e) {
-        console.error("Polling fetch error:", e);
-      }
-
-      if (pollCount >= maxPolls) {
-        setStatus("idle");
-        setErrorMessage("Refresh timed out. Please check GitHub Actions logs.");
-        setTimeout(() => setErrorMessage(""), 8000);
-      }
-    }, 10000); // Poll every 10 seconds
-
-    return () => clearInterval(interval);
-  }, [status, refetch]);
-
-  // Listen to lastUpdated updates to complete polling state
-  useEffect(() => {
-    if (status === "polling" && lastUpdated !== initialLastUpdatedRef.current) {
-      setStatus("success");
-      initialLastUpdatedRef.current = lastUpdated;
-      setTimeout(() => setStatus("idle"), 5000);
-    }
-  }, [lastUpdated, status]);
-
   const handleRefresh = async () => {
-    setStatus("triggering");
-    initialLastUpdatedRef.current = lastUpdated;
-
-    try {
-      const response = await fetch("/api/refresh", {
-        method: "POST",
-      });
-
-      if (response.ok) {
-        setStatus("polling");
-      } else {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server returned status ${response.status}`);
-      }
-    } catch (e) {
-      console.error(e);
-      setStatus("error");
-      setErrorMessage(e.message || "Failed to trigger GitHub Action.");
-      
-      // Fallback: Reload local data
-      refetch();
-
-      setTimeout(() => {
-        setStatus("idle");
-        setErrorMessage("");
-      }, 7000);
-    }
+    setStatus("loading");
+    await refetch();
+    setStatus("success");
+    setTimeout(() => {
+      setStatus("idle");
+    }, 3000);
   };
 
   return (
@@ -118,46 +57,28 @@ export function RefreshBadge({ lastUpdated, refetch }) {
         {/* Refresh Button */}
         <button
           onClick={handleRefresh}
-          disabled={status === "triggering" || status === "polling"}
+          disabled={status === "loading"}
           className={`h-9 px-4 text-xs font-semibold rounded-lg flex items-center gap-1.5 border transition-all duration-200 ${
-            status === "polling" || status === "triggering"
+            status === "loading"
               ? "bg-slate-800 border-slate-700 text-slate-400 cursor-not-allowed"
               : "bg-slate-950 border-slate-850 text-slate-300 hover:text-white hover:border-slate-700 hover:bg-slate-900/40 hover:shadow-lg"
           }`}
         >
           <RefreshCw
             size={13}
-            className={`${status === "triggering" || status === "polling" ? "animate-spin text-teal-400" : ""}`}
+            className={`${status === "loading" ? "animate-spin text-teal-400" : ""}`}
           />
           {status === "idle" && "Refresh Now"}
-          {status === "triggering" && "Triggering..."}
-          {status === "polling" && "Running Action (1-2m)..."}
-          {status === "success" && "Refreshed!"}
-          {status === "error" && "Failed"}
+          {status === "loading" && "Reloading..."}
+          {status === "success" && "Reloaded!"}
         </button>
       </div>
 
       {/* Messages */}
-      {status === "polling" && (
-        <div className="flex items-center gap-1.5 text-[11px] text-teal-400 bg-teal-950/20 border border-teal-800/30 px-3 py-2 rounded-lg leading-snug">
-          <Info size={14} className="shrink-0" />
-          <span>
-            GitHub Action workflow dispatched successfully! Checking for fresh data every 10 seconds.
-          </span>
-        </div>
-      )}
-
-      {errorMessage && (
-        <div className="flex items-start gap-1.5 text-[11px] text-amber-400 bg-amber-950/20 border border-amber-800/30 px-3 py-2 rounded-lg leading-snug">
-          <AlertCircle size={14} className="shrink-0 mt-0.5" />
-          <span>{errorMessage}</span>
-        </div>
-      )}
-
       {status === "success" && (
         <div className="flex items-center gap-1.5 text-[11px] text-emerald-400 bg-emerald-950/20 border border-emerald-800/30 px-3 py-2 rounded-lg leading-snug">
           <CheckCircle size={14} className="shrink-0" />
-          <span>New market data fetched and loaded successfully!</span>
+          <span>Local data reloaded successfully!</span>
         </div>
       )}
     </div>
