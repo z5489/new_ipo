@@ -2,7 +2,7 @@ name: Fetch Market Data
 
 on:
   schedule:
-    - cron: "30 21 * * 1-5"       # 4:30 PM ET (21:30 UTC), Monday–Friday
+    - cron: "30 21 * * 5"       # 4:30 PM ET (21:30 UTC), Friday
   workflow_dispatch:            # Manual trigger
 
 permissions:
